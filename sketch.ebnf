@@ -1,0 +1,20 @@
+<statechart> = (state / <whitespace> / <comments>)+
+
+state = comments? state-name <whitespace>? <newline> block?
+transition = comments? event-name <whitespace>? <'->'> <whitespace>? state-name <newline>
+
+<block> = indent (state / transition / <whitespace> / <comments>)+ dedent
+
+comments = comment (<newline> comment)* <newline>
+<comment> = <'#'> #".*"
+
+<state-name> = name
+<event-name> = name
+
+name = word (<whitespace> word)*
+word = !indent (letter-or-numbers | '-' | '_' | '*' | '?' | '&')+
+
+<whitespace> = #"[ \t]+"
+<newline> = '\n'
+<indent> = <'INDENT'>
+<dedent> = <'DEDENT'>
